@@ -43,40 +43,40 @@ static string spelling[]=
 	"LEQ","ERROR"
   };
 %}
-punctuation "+"|"-"|"*"|"/"|"("|")"|"["|"]"|":"|";"|","|"."|".."|":="|"="|"<>"|"<"|"<="|">"|">="
-emptySpace [ \t\n] 
+punctuation ("+"|"-"|"*"|"/"|"("|")"|"["|"]"|":"|";"|","|".."|":="|"="|"<>"|"<"|"<="|">"|">=")
+emptySpace [ \t\n]+ 
 %%
 \n					{lineNo++; colNo = 1;/*allow proper counting of lines/reset columns*/}
 [ \t]+                                	{colNo++;/* allow proper counting of columns*/}
 [{][^{]*[}]				;//allow for scanner to ignore comments
- [aA][nN][dD]				return TokenMgr(AND);
- [aA][rR][rR][aA][yY]			return TokenMgr(ARRAY);
- [bB][eE][gG][iI][nN]			return TokenMgr(BEGAN);
- [dD][iI][vV]				return TokenMgr(DIV);
- [dD][oO]				return TokenMgr(DO);
- [eE][lL][sS][eE]			return TokenMgr(ELSE);
- [eE][nN][dD]				return TokenMgr(END);
- [fF][oO][rR]				return TokenMgr(FOR);
- [fF][uU][nN][cC][tT][iI][oO][nN]	return TokenMgr(FUNCTION);
- [iI][fF]				return TokenMgr(IF);
- [iI][nN][tT][eE][gG][eE][rR]		return TokenMgr(INTEGER);
- [mM][oO][dD]				return TokenMgr(MOD);
- [nN][oO][tT]				return TokenMgr(NOT);
- [oO][fF]				return TokenMgr(OF);
- [pP][rR][oO][cC][eE][dD][uU][rR][eE]	return TokenMgr(PROCEDURE);
- [pP][rR][oO][gG][rR][aA][mM]		return TokenMgr(PROGRAM);
- [rR][eE][aA][lL]			return TokenMgr(REAL);
- [rR][eE][pP][eE][aA][tT]		return TokenMgr(REPEAT);
- [tT][hH][eE][nN]			return TokenMgr(THEN);
- [tT][oO]				return TokenMgr(TO);
- [uU][nN][tT][iI][lL]			return TokenMgr(UNTIL);
- [vV][aA][rR]				return TokenMgr(VAR);
- [wW][hH][iI][lL][eE]			return TokenMgr(WHILE);
+[aA][nN][dD]				return TokenMgr(AND);
+[aA][rR][rR][aA][yY]			return TokenMgr(ARRAY);
+[bB][eE][gG][iI][nN]			return TokenMgr(BEGAN);
+[dD][iI][vV]				return TokenMgr(DIV);
+[dD][oO]				return TokenMgr(DO);
+[eE][lL][sS][eE]			return TokenMgr(ELSE);
+[eE][nN][dD]				return TokenMgr(END);
+[fF][oO][rR]				return TokenMgr(FOR);
+[fF][uU][nN][cC][tT][iI][oO][nN]	return TokenMgr(FUNCTION);
+[iI][fF]				return TokenMgr(IF);
+[iI][nN][tT][eE][gG][eE][rR]		return TokenMgr(INTEGER);
+[mM][oO][dD]				return TokenMgr(MOD);
+[nN][oO][tT]				return TokenMgr(NOT);
+[oO][fF]				return TokenMgr(OF);
+[pP][rR][oO][cC][eE][dD][uU][rR][eE]	return TokenMgr(PROCEDURE);
+[pP][rR][oO][gG][rR][aA][mM]		return TokenMgr(PROGRAM);
+[rR][eE][aA][lL]			return TokenMgr(REAL);
+[rR][eE][pP][eE][aA][tT]		return TokenMgr(REPEAT);
+[tT][hH][eE][nN]			return TokenMgr(THEN);
+[tT][oO]				return TokenMgr(TO);
+[uU][nN][tT][iI][lL]			return TokenMgr(UNTIL);
+[vV][aA][rR]				return TokenMgr(VAR);
+[wW][hH][iI][lL][eE]			return TokenMgr(WHILE);
 [0-9]+                                  return TokenMgr(INTLIT);
-[0-9]+\.[0-9]*([Ee][+-]?[0-9]+)?	return TokenMgr(REALIT);
-[0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?	return TokenMgr(REALIT);
-[0-9]+[Ee][+-]?[0-9]+			return TokenMgr(REALIT);
-\'.\'|''''			return TokenMgr(CHRLIT);//ask turner about this
+[0-9]+\.[0-9]*([Ee][+-]?[0-9]+)?/{punctuation}|{emptySpace}	return TokenMgr(REALIT);
+[0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?/{punctuation}|{emptySpace}	return TokenMgr(REALIT);
+[0-9]+[Ee][+-]?[0-9]+/{punctuation}|{emptySpace}			return TokenMgr(REALIT);
+\'[^{\n]\'|''''			return TokenMgr(CHRLIT);//ask turner about this
  [a-zA-Z_][a-zA-Z0-9_]* 		return TokenMgr(ID);
 "+"                                     return TokenMgr(PLUS);
 "-"                                     return TokenMgr(MINUS);
