@@ -1,5 +1,5 @@
 #------------------------------------------------------------------
-# File p02make contains instructions for creating file p01,
+# File p02make contains instructions for creating file p02,
 #------------------------------------------------------------------
 # Author: Steven Chambers                                           
 # E-Mail: schambers4@uco.edu
@@ -29,3 +29,18 @@ p02lex.cpp:	p02lex.l
 #------------------------------------------------------------------
 p02lex.o:	p02lex.cpp p02lex.h p02tkn.h
 		g++ -c -g p02lex.cpp
+#------------------------------------------------------------------
+# File p02par.cpp is the C++ parser created by yacc
+#------------------------------------------------------------------
+p02par.o:	p02par.cpp p02par.h
+		g++ -c -g p02par.cpp
+#------------------------------------------------------------------
+# File p02par.y contains the specification of the Subset Pascal
+# Parser in a format acceptable to yacc
+#------------------------------------------------------------------
+y.tab.h\
+p02par.cpp:	p02par.y
+		yacc -d -v p02par.y
+		mv y.tab.c p02par.cpp
+		mv y.tab.h p02tkn.h
+#------------------------------------------------------------------
