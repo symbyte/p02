@@ -21,6 +21,7 @@
 //Application include files
 //--------------------------------------------------------------------
 #include "p02lex.h"
+#include "p02par.h"
 //--------------------------------------------------------------------
 //Namespaces
 //--------------------------------------------------------------------
@@ -57,9 +58,10 @@ int main(int argc,char* argv[])
     char outExt[] = {'.', 't', 'r', 'c', '\0'};
     strcat(ofn, outExt);
     freopen(ofn,"w+",stdout);
-    Lexer lex(i);                    //Redirect the lexer to read the input
-    for (;lex.Scan();)                         //file
+    Parser par(i);
+    par.Parse();
     cout << endl;
+    fclose(ofn);
     fclose(i);
     return 0;
 }
