@@ -61,7 +61,7 @@ int main(int argc,char* argv[])
     Parser par(i);
     par.Parse();
     cout << endl;
-    fclose(ofn);
+    //fclose(ofn);
     fclose(i);
     return 0;
 }
