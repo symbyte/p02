@@ -130,6 +130,131 @@ subprogram-head:
   FUNCTION ID arguments COLON standard-type SEMICOLON
   { cout << endl << "subprogram-head -> FUNCTION ID arguments : standard-type ;";
   }
+expression:
+    simple_expression relop simple_expression 
+    {
+        cout << endl << "=";
+    }
+relop:
+    EQU 
+    {
+        cout << endl << "=";
+    }
+relop:
+    NEQ 
+    {
+        cout << endl << "<>";
+    }
+relop:
+    LES 
+    {
+        cout << endl << "<";
+    }
+relop:
+    LEQ 
+    {
+        cout << endl << "<=";
+    }
+relop:
+    GRT
+    {
+        cout << endl << ">";
+    }
+relop:
+    GEQ
+    {
+        cout << endl << ">=";
+    }
+simple_expression:
+    term 
+    {
+        cout << endl << "term";
+    }
+simple_expression:
+    sign term
+    {
+        cout << endl << "sign term";
+    }
+simple_expression:
+    simple_expression addop term
+    {
+        cout << endl << "simple-expression addop term";
+    }
+addop:
+    PLUS 
+    {
+        cout << endl << "+";
+    }
+addop:
+    MINUS
+    {
+        cout << endl << "-";
+    }
+addop:
+    OR
+    {
+        cout << endl << "OR";
+    }
+term:
+    factor 
+    {
+        cout << endl << "factor";
+    }
+term:
+    term mulop factor 
+    {
+        cout << endl << "term mulop factor";
+    }
+mulop:
+    STAR  
+    {
+        cout << endl << "*";
+    }
+mulop:
+    SLASH 
+    {
+        cout << endl << "/";
+    }
+mulop:
+    DIV
+    {
+        cout << endl << "DIV";
+    }
+mulop:
+    MOD
+    {
+        cout << endl << "MOD";
+    }
+mulop:
+    AND 
+    {
+        cout << endl << "AND";
+    }
+factor:
+      ID
+    {
+        cout << endl << "ID";
+    }
+factor:
+    LPAREN expression RPAREN 
+    {
+        cout << endl << "+";
+    }
+factor:
+    NOT factor 
+    {
+        cout << endl << "NOT factor";
+    }
+sign:
+    PLUS
+    {
+        cout << endl << "+";
+    }
+sign:
+    MINUS 
+    {
+        cout << endl << "-";
+    }
 %%
 //---------------------------------------------------------------------
 //User function section
