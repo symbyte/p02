@@ -85,50 +85,135 @@ void yyerror(const char* m);
 program:
   term
   { cout << endl << "right thing here TODO"; 
+   //TODO
   }
-identifier-list:
+identifier_list:
   ID
   { cout << endl << "identifier-list -> ID";
   }
-identifier-list:
-  identifier-list COMMA ID
+identifier_list:
+  identifier_list COMMA ID
   { cout << endl << "identifier-list -> identifier-list, ID";
   }
 {//TODO: declarations -> null set
 }
 declarations:
-  declarations VAR identifier-list COLON type SEMICOLON
+  declarations VAR identifier_list COLON type SEMICOLON
   { cout << endl << "declarations -> declarations VAR identifier-list : type ;";
   }
 type:
-  standard-type
+  standard_type
   { cout << endl << "type -> standard-type";
   }
 type:
-  ARRAY LBRACKET INTLIT RANGE INTLIT RBRACKET OF standard-type
+  ARRAY LBRACKET INTLIT RANGE INTLIT RBRACKET OF standard_type
   { cout << endl << "type -> ARRAY [ INTLIT .. INTLIT ] OF standard-type";
   }
-standard-type:
+standard_type:
   INTEGER
   { cout << endl << "standard-type -> INTEGER";
   }
-standard-type:
+standard_type:
   REAL
   { cout << endl << "standard-type -> REAL";
   }
 {// TODO: subprogram-declarations -> null set 
 }
-subprogram-declarations:
-  subprogram-declarations subprogram-declaration SEMICOLON
+subprogram_declarations:
+  subprogram_declarations subprogram_declaration SEMICOLON
   { cout << endl << "subprogram-declarations -> subprogram-declarations subprogram-declaration ;";
   }
-subprogram-declaration:
-  subprogram-head declarations compound-statement
+subprogram_declaration:
+  subprogram_head declarations compound_statement
   { cout << endl << "subprogram-declaration -> subprogram-head declarations compound-statement";
   }
-subprogram-head:
-  FUNCTION ID arguments COLON standard-type SEMICOLON
+subprogram_head:
+  FUNCTION ID arguments COLON standard_type SEMICOLON
   { cout << endl << "subprogram-head -> FUNCTION ID arguments : standard-type ;";
+  }
+subprogram_head:
+  PROCEDURE ID arguments SEMICOLON
+  { cout << endl << "subprogram-head -> PROCEDURE ID arguments;";
+  }
+{//TODO: arguments -> null set
+}
+arguments:
+  LPAREN parameter_list RPAREN
+  { cout << endl << "arguments -> ( parameter list )";
+  }
+parameter_list:
+  identifier_list COLON type
+  { cout << endl << "parameter-list -> identifier-list : type";
+  }
+parameter_list:
+  parameter_list SEMICOLON identifier_list COLON type
+  { cout << endl << "parameter-list -> parameter-list ; identifier-list : type";
+  }
+compound_statement:
+  BEGAN optional_statements END
+  { cout << endl << "compound-statement -> BEGIN optional-statements END";
+  }
+{//TODO: optional statements -> null set
+}
+optional_statements:
+  statement_list
+  { cout << endl << "optional-statements -> statement-list";
+  }
+statement_list:
+  statement
+  { cout << endl << "optional-statements -> statement";
+  }
+statement_list:
+  statement_list SEMICOLON statement
+  { cout << endl << "statement-list -> statement-list; statement";
+  }
+statement:
+  variable ASSIGNOP expression
+  { cout << endl << "statement -> variable := expression";
+  }
+statement
+  procedure_statement
+  { cout << endl << "statement -> procedure-statement";
+  }
+statement:
+  compound_statement
+  { cout << endl << "statement -> compound-statement";
+  }
+statement:
+  IF expression THEN statement ELSE statement
+  { cout << endl << "statement -> IF expression THEN statement ELSE statement";
+  }
+statement:
+  WHILE expression DO statement
+  { cout << endl << "statement -> WHILE expression DO statement";
+  }
+variable:
+  ID
+  { cout << endl << "variable -> ID";
+  }
+variable:
+  ID LBRACKET expression RBRACKET
+  { cout << endl << "variable -> ID [ expression ]";
+  }
+procedure_statement:
+  ID
+  { cout << endl << "procedure-statement -> ID";
+  }
+procedure_statement:
+  ID LPAREN expression_list RPAREN
+  { cout << endl << "procedure-statement -> ID ( expression-list )";
+  }
+expression_list:
+  expression
+  { cout << endl << "expression-list -> expression";
+  }
+expression_list:
+  expression_list COMMA expression
+  { cout << endl << "expression-list -> expression-list, expression";
+  }
+expression:
+  simple_expression
+  { cout << endl << "expression -> simple-expression";
   }
 %%
 //---------------------------------------------------------------------
