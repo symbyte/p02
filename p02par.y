@@ -83,8 +83,9 @@ void yyerror(const char* m);
 %token ERROR
 %%
 program:
-  PROGRAM ID LPAREN identifier_list RPAREN SEMICOLON declarations subprogram_declarations compound_statement PERIOD
-  { cout << endl << "program -> PROGRAM ID ( identifier-list ) ; declarations subprogram-declarations compound-statement ."
+  term
+  { cout << endl << "right thing here TODO"; 
+   //TODO
   }
 identifier_list:
   ID
@@ -94,10 +95,8 @@ identifier_list:
   identifier_list COMMA ID
   { cout << endl << "identifier-list -> identifier-list, ID";
   }
-declarations:
-  {/* empty */
-    cout << endl << "declarations -> ''";
-  }
+{//TODO: declarations -> null set
+}
 declarations:
   declarations VAR identifier_list COLON type SEMICOLON
   { cout << endl << "declarations -> declarations VAR identifier-list : type ;";
@@ -118,10 +117,8 @@ standard_type:
   REAL
   { cout << endl << "standard-type -> REAL";
   }
-subprogram_declarations:
-  { /* empty */
-    cout << endl << "standard-type -> ''";
-  }
+{// TODO: subprogram-declarations -> null set 
+}
 subprogram_declarations:
   subprogram_declarations subprogram_declaration SEMICOLON
   { cout << endl << "subprogram-declarations -> subprogram-declarations subprogram-declaration ;";
@@ -138,10 +135,8 @@ subprogram_head:
   PROCEDURE ID arguments SEMICOLON
   { cout << endl << "subprogram-head -> PROCEDURE ID arguments;";
   }
-arguments:
-  { /* empty */
-    cout << endl << "arguments -> ''";
-  }
+{//TODO: arguments -> null set
+}
 arguments:
   LPAREN parameter_list RPAREN
   { cout << endl << "arguments -> ( parameter list )";
@@ -158,10 +153,8 @@ compound_statement:
   BEGAN optional_statements END
   { cout << endl << "compound-statement -> BEGIN optional-statements END";
   }
-optional_statements:
-  { /* empty */
-    cout << endl << "optional-statements -> ''";
-  }
+{//TODO: optional statements -> null set
+}
 optional_statements:
   statement_list
   { cout << endl << "optional-statements -> statement-list";
