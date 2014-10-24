@@ -23,6 +23,8 @@
 //---------------------------------------------------------------------
 //Externals
 //---------------------------------------------------------------------
+extern int lineNo;
+extern int colNo;
 //---------------------------------------------------------------------
 //Function prototypes
 //---------------------------------------------------------------------
@@ -41,6 +43,7 @@ void yyerror(const char* m);
 %token LBRACKET 
 %token COLON
 %token SEMICOLON
+%token COMMA
 %token PERIOD
 %token RANGE
 %token ASSIGNOP
@@ -49,7 +52,7 @@ void yyerror(const char* m);
 %token LES
 %token GRT
 %token GEQ
-%token CHARLIT
+%token CHRLIT
 %token REALIT
 %token ID
 %token AND
@@ -79,46 +82,79 @@ void yyerror(const char* m);
 %token LEQ
 %token ERROR
 %%
-expression:
+program:
   term
-  { cout << endl << "expression -> term"; 
+  { cout << endl << "right thing here TODO"; 
   }
-expression:
-  expression PLUS term
-  { cout << endl << "expression -> expression + term";
+identifier-list:
+  ID
+  { cout << endl << "identifier-list -> ID";
   }
-expression:
-  expression MINUS term
-  { cout << endl << "expression -> expression - term";
+identifier-list:
+  identifier-list COMMA ID
+  { cout << endl << "identifier-list -> identifier-list, ID";
   }
-term:
-  factor
-  { cout << endl << "term -> factor";
+{//TODO: declarations -> null set
+}
+declarations:
+  declarations VAR identifier-list COLON type SEMICOLON
+  { cout << endl << "declarations -> declarations VAR identifier-list : type ;";
   }
-term:
-  term STAR factor
-  { cout << endl << "term -> term * factor";
+type:
+  standard-type
+  { cout << endl << "type -> standard-type";
   }
-term:
-  term SLASH factor
-  { cout << endl << "term -> term / factor";
+type:
+  ARRAY LBRACKET INTLIT RANGE INTLIT RBRACKET OF standard-type
+  { cout << endl << "type -> ARRAY [ INTLIT .. INTLIT ] OF standard-type";
   }
-factor:
-  LPAREN expression RPAREN
-  { cout << endl << "factor -> ( expression )";
+standard-type:
+  INTEGER
+  { cout << endl << "standard-type -> INTEGER";
   }
-factor:
-  INTLIT
-  { cout << endl << "factor -> INTLIT";
+standard-type:
+  REAL
+  { cout << endl << "standard-type -> REAL";
+  }
+{// TODO: subprogram-declarations -> null set 
+}
+subprogram-declarations:
+  subprogram-declarations subprogram-declaration SEMICOLON
+  { cout << endl << "subprogram-declarations -> subprogram-declarations subprogram-declaration ;";
+  }
+subprogram-declaration:
+  subprogram-head declarations compound-statement
+  { cout << endl << "subprogram-declaration -> subprogram-head declarations compound-statement";
+  }
+subprogram-head:
+  FUNCTION ID arguments COLON standard-type SEMICOLON
+  { cout << endl << "subprogram-head -> FUNCTION ID arguments : standard-type ;";
   }
 %%
+//---------------------------------------------------------------------
+//User function section
+//---------------------------------------------------------------------
+struct Error {
+  Error(const char* m) {
+    cout << endl << "line(" << lineNo << ") col(" << colNo << ")" << m;
+    cout << endl;
+  }
+};
 //---------------------------------------------------------------------
 //Function yyerror is necessary
 //---------------------------------------------------------------------
 void yyerror(const char* m)
-{   cout << endl << m << endl;
-    cout << endl;
+{  
+  throw Error(m);
 }
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//Parser::Parser(FILE* i):Lexer(i){};
+int Parser::Parse(){return yyparse();}
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+Parser::~Parser(){}
+//---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //End of exppar.y
 //---------------------------------------------------------------------

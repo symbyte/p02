@@ -19,7 +19,9 @@ extern "C"
 int yyparse (void);
 class Parser: public Lexer {
 public:
-  Parser(FILE* i):Lexer(i){}
+  Parser(FILE* i):Lexer(i){};
+  ~Parser();
+  int Parse();
 };
 #endif
 
