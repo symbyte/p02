@@ -83,9 +83,8 @@ void yyerror(const char* m);
 %token ERROR
 %%
 program:
-  term
-  { cout << endl << "right thing here TODO"; 
-   //TODO
+  PROGRAM ID LPAREN identifier_list RPAREN SEMICOLON declarations subprogram_declarations compound_statement PERIOD
+  { cout << endl << "program -> PROGRAM ID ( identifier-list ) ; declarations subprogram-declarations compound-statement ."
   }
 identifier-list:
 identifier_list:
@@ -98,8 +97,10 @@ identifier_list:
   identifier_list COMMA ID
   { cout << endl << "identifier-list -> identifier-list, ID";
   }
-{//TODO: declarations -> null set
-}
+declarations:
+  {/* empty */
+    cout << endl << "declarations -> ''";
+  }
 declarations:
   declarations VAR identifier-list COLON type SEMICOLON
   declarations VAR identifier_list COLON type SEMICOLON
@@ -125,10 +126,17 @@ standard_type:
   REAL
   { cout << endl << "standard-type -> REAL";
   }
+<<<<<<< HEAD
 {// TODO: subprogram-declarations -> null set 
 }
 subprogram-declarations:
   subprogram-declarations subprogram-declaration SEMICOLON
+=======
+subprogram_declarations:
+  { /* empty */
+    cout << endl << "standard-type -> ''";
+  }
+>>>>>>> 666e40428b45d5e25d5c5f93e7111ca6c6611b2b
 subprogram_declarations:
   subprogram_declarations subprogram_declaration SEMICOLON
   { cout << endl << "subprogram-declarations -> subprogram-declarations subprogram-declaration ;";
@@ -149,8 +157,10 @@ subprogram_head:
   PROCEDURE ID arguments SEMICOLON
   { cout << endl << "subprogram-head -> PROCEDURE ID arguments;";
   }
-{//TODO: arguments -> null set
-}
+arguments:
+  { /* empty */
+    cout << endl << "arguments -> ''";
+  }
 arguments:
   LPAREN parameter_list RPAREN
   { cout << endl << "arguments -> ( parameter list )";
@@ -167,8 +177,10 @@ compound_statement:
   BEGAN optional_statements END
   { cout << endl << "compound-statement -> BEGIN optional-statements END";
   }
-{//TODO: optional statements -> null set
-}
+optional_statements:
+  { /* empty */
+    cout << endl << "optional-statements -> ''";
+  }
 optional_statements:
   statement_list
   { cout << endl << "optional-statements -> statement-list";
