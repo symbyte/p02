@@ -330,17 +330,17 @@ factor:
 factor:
     ID LPAREN expression_list RPAREN
     {
-        cout << endl << "factor -> (expression_list)";
+        cout << endl << "factor -> ID(expression_list)";
     }
 factor:
     INTLIT
     {
-        cout << endl << "factor -> (expression_list)";
+        cout << endl << "factor -> INTLIT";
     }
 factor:
     REALIT
     {
-        cout << endl << "factor -> (expression)";
+        cout << endl << "factor -> REALIT";
     }
 factor:
     LPAREN expression RPAREN 
