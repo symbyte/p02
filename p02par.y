@@ -343,7 +343,7 @@ factor:
         cout << endl << "factor -> (expression)";
     }
 factor:
-    LPAREN expression_list RPAREN 
+    LPAREN expression RPAREN 
     {
         cout << endl << "factor -> (expression)";
     }
