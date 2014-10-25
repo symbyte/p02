@@ -225,127 +225,142 @@ expression:
 expression:
     simple_expression relop simple_expression 
     {
-        cout << endl << "=";
+        cout << endl << "expression -> simple_expression relop simple_expression";
     }
 relop:
     EQU 
     {
-        cout << endl << "=";
+        cout << endl << "relop -> =";
     }
 relop:
     NEQ 
     {
-        cout << endl << "<>";
+        cout << endl << "relop -> <>";
     }
 relop:
     LES 
     {
-        cout << endl << "<";
+        cout << endl << "relop -> <";
     }
 relop:
     LEQ 
     {
-        cout << endl << "<=";
+        cout << endl << "relop -> <=";
     }
 relop:
     GRT
     {
-        cout << endl << ">";
+        cout << endl << "relop -> >";
     }
 relop:
     GEQ
     {
-        cout << endl << ">=";
+        cout << endl << "relop -> >=";
     }
 simple_expression:
     term 
     {
-        cout << endl << "term";
+        cout << endl << "simple_expression -> term";
     }
 simple_expression:
     sign term
     {
-        cout << endl << "sign term";
+        cout << endl << "simple_expression -> sign term";
     }
 simple_expression:
     simple_expression addop term
     {
-        cout << endl << "simple-expression addop term";
+        cout << endl << "simple_expression -> simple-expression addop term";
     }
 addop:
     PLUS 
     {
-        cout << endl << "+";
+        cout << endl << "addop -> +";
     }
 addop:
     MINUS
     {
-        cout << endl << "-";
+        cout << endl << "addop -> -";
     }
 addop:
     OR
     {
-        cout << endl << "OR";
+        cout << endl << "addop -> OR";
     }
 term:
     factor 
     {
-        cout << endl << "factor";
+        cout << endl << "term -> factor";
     }
 term:
     term mulop factor 
     {
-        cout << endl << "term mulop factor";
+        cout << endl << "term -> term mulop factor";
     }
 mulop:
     STAR  
     {
-        cout << endl << "*";
+        cout << endl << "mulop -> *";
     }
 mulop:
     SLASH 
     {
-        cout << endl << "/";
+        cout << endl << "mulop -> /";
     }
 mulop:
     DIV
     {
-        cout << endl << "DIV";
+        cout << endl << "mulop -> DIV";
     }
 mulop:
     MOD
     {
-        cout << endl << "MOD";
+        cout << endl << "mulop -> MOD";
     }
 mulop:
     AND 
     {
-        cout << endl << "AND";
+        cout << endl << "mulop -> AND";
     }
 factor:
-      ID
+    ID
     {
-        cout << endl << "ID";
+        cout << endl << "factor -> ID";
     }
 factor:
-    LPAREN expression RPAREN 
+    ID LPAREN expression_list RPAREN
     {
-        cout << endl << "+";
+        cout << endl << "factor -> (expression_list)";
+    }
+factor:
+    INTLIT
+    {
+        cout << endl << "factor -> (expression_list)";
+    }
+factor:
+    REALIT
+    {
+        cout << endl << "factor -> (expression)";
+    }
+factor:
+    LPAREN expression_list RPAREN 
+    {
+        cout << endl << "factor -> (expression)";
     }
 factor:
     NOT factor 
     {
-        cout << endl << "NOT factor";
+        cout << endl << "factor -> NOT factor";
     }
 sign:
     PLUS
     {
-        cout << endl << "+";
+        cout << endl << "sign -> +";
     }
 sign:
     MINUS 
     {
-        cout << endl << "-";
+        cout << endl << "sign -> -";
     }
 %%
 //---------------------------------------------------------------------
