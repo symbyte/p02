@@ -182,7 +182,7 @@ statement:
   variable ASSIGNOP expression
   { cout << endl << "statement -> variable := expression";
   }
-statement
+statement:
   procedure_statement
   { cout << endl << "statement -> procedure-statement";
   }
