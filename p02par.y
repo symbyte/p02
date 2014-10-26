@@ -15,6 +15,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cstdio>
 //---------------------------------------------------------------------
 //Application include files
 //---------------------------------------------------------------------
@@ -25,6 +26,7 @@
 //---------------------------------------------------------------------
 extern int lineNo;
 extern int colNo;
+#define YYDEBUG 1
 //---------------------------------------------------------------------
 //Function prototypes
 //---------------------------------------------------------------------
@@ -81,6 +83,8 @@ void yyerror(const char* m);
 %token WHILE
 %token LEQ
 %token ERROR
+%debug
+%error-verbose
 %%
 program:
   PROGRAM ID LPAREN identifier_list RPAREN SEMICOLON declarations subprogram_declarations compound_statement PERIOD
@@ -159,16 +163,16 @@ compound_statement:
   { cout << endl << "compound-statement -> BEGIN optional-statements END";
   }
 optional_statements:
-  { /* empty */
-    cout << endl << "optional-statements -> \"\"";
-  }
-optional_statements:
   statement_list
   { cout << endl << "optional-statements -> statement-list";
   }
+optional_statements:
+  { /* empty */
+    cout << endl << "optional-statements -> \"\"";
+  }
 statement_list:
   statement
-  { cout << endl << "optional-statements -> statement";
+  { cout << endl << "statement-list -> statement";
   }
 statement_list:
   statement_list SEMICOLON statement

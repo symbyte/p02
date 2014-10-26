@@ -26,6 +26,7 @@
 //Namespaces
 //--------------------------------------------------------------------
 using namespace std;
+extern int yydebug;
 //--------------------------------------------------------------------
 //Function main processes command line arguments
 //--------------------------------------------------------------------
@@ -58,6 +59,7 @@ int main(int argc,char* argv[])
     char outExt[] = {'.', 't', 'r', 'c', '\0'};
     strcat(ofn, outExt);
     freopen(ofn,"w+",stdout);
+    yydebug = 1;
     Parser par(i);
     par.Parse();
     cout << endl;
