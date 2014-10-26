@@ -4,3 +4,8 @@ p02tkn.h
 p02par.cpp
 p02lex.cpp
 NUL
+*.o
+*.pas
+*.trc
+p02
+y.output
