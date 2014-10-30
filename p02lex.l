@@ -2,12 +2,17 @@
 //--------------------------------------------------------------------
 // File p02lex.l defines a prototype scanner for expressions.
 // The scanner definition is a lex specification.                        
-//-------------------------------------------------------------------
-// Author: Steven Chambers                                           
-// E-Mail: schambers4@uco.edu
-// Author: Melicent King 
-// E-mail: mking24@uco.edu	                                        
-// Date:   October, 2014 
+//--------------------------------------------------------------------
+// Author 1:    Steven Chambers                                           
+// Student ID:  *20342421
+// E-Mail:      schambers4@uco.edu
+// Author 2:    Melicent King 
+// Student ID:  *20355157
+// E-mail:      mking24@uco.edu	                                        
+// Course:      CMSC 4023 - Programming Languages
+// CRN:         12105
+// Project:     p02
+// Due:         November 5, 2014 
 //--------------------------------------------------------------------
 //--------------------------------------------------------------------
 // Standard C and C++ Library Include Files                                     
